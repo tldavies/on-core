@@ -15,8 +15,6 @@ BUILD_NUM_HTTP=$(curl -s 'https://api.travis-ci.org/repos/tldavies/on-http/build
 BUILD_NUM_TFP=$(curl -s 'https://api.travis-ci.org/repos/RackHD/on-tftp/builds' | grep -o '^\[{"id":[0-9]*,' | grep -o '[0-9]' | tr -d '\n')
 BUILD_NUM_TASKS=$(curl -s 'https://api.travis-ci.org/repos/RackHD/on-tasks/builds' | grep -o '^\[{"id":[0-9]*,' | grep -o '[0-9]' | tr -d '\n')
 
-
-echo $AUTH_TOKEN
 echo $BUILD_NUM_DHCP
 echo $BUILD_NUM_HTTP
 
