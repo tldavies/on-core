@@ -9,12 +9,18 @@ matrix:
    - node_js: "4"
 
 services:
- - mongodb
- - rabbitmq
+  - mongodb
+  - rabbitmq
+
+env:
+  global:
+    - secure: "tNNNVDWyepo9eYsZXADfwuj4MmXPbBg1cCF72AbVK4/aCVlXo+8lgLuObbeVuY4PUzCnP74fp1t9zliVr06IoyzUYqf6N/Fkgm3jnPlJnoOdYuJ3ap8t0SlMrGvoRIJjw1yN2WoDo2bY8FKseeRnhZE8G8G8qLoqKGH9iKEGrcMg8jUepyfY6bH9dZBV6NsTEQW9ewojTMnagDWGtq04OK9Flc+R2OzYrMp6mHfxHyIB8hKdeQtFouIdY0wgfzlZLiWI4Ltb8Lq2I0gM4tlubeoShdGRssitcxNjysBtg1ZndVGCn4Mh2BO31oQUsCD7ngzPNOc+d3YvQgLzfFfjJU3QetZmuKAlo4MzbrD1GkODlggvM4cA5Yij7tYXfI00xOqjbmua/pngjhXTkcW6KlylRri01mla4dQXYABA8Y3+P2f6E5+vABkUrKwygXAhaMUWmU8mEtv9YA6U/Iu9aM8rI0+FhuMbGpIq+o28hWAYm3SX57n4bNs+p5yfntCjzaHFaePnyKSmPKJPl+I3JsnS+2fAhYqUgGBVzipBOPkMOJGMSZN9xRAvEFkLSMrjI1MhFtOYwckHvegAIOmD1hutBTcuvqhY0n2hRL+uufgNKyAEKvWBmywhD9nUTDXXOxUEaWFz/FSXIX4fB0hxv1GdCm6G/N1Co8wiWISMGlg="
 
 after_success:
  - ./node_modules/.bin/istanbul cover -x "**/spec/**" ./node_modules/.bin/_mocha --report lcovonly -- $(find spec -name '*-spec.js') -R spec --require spec/helper.js
  - cat ./coverage/lcov.info | node_modules/.bin/coveralls
+ - chmod 755 ./build_children.sh
+ - ./build_children.sh
 
 notifications:
   slack:
@@ -23,3 +29,4 @@ notifications:
     on_success: never
     on_failure: always
     on_start: never
+
